@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download YouTube videos, playlists, and entire channels easily with our free online tool. Fast, reliable, and simple YouTube downloader by MagnatesEmpire.com (yt.magnatesempire.com).">
+    <meta name="keywords" content="youtube downloader, download youtube video, youtube playlist downloader, youtube channel downloader, free youtube downloader, online youtube downloader, video downloader, save youtube video, python youtube downloader, magnatesempire, yt.magnatesempire.com">
+    <meta name="author" content="MagnatesEmpire.com">
+    <title>{% block title %}YouTube Downloader - MagnatesEmpire.com{% endblock %}</title>
+    <!-- Link to your CSS file if you have one -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Basic inline styles for quick start - Move to style.css for better organization */
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; background-color: #f4f4f4; color: #333; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #c00; text-align: center; margin-bottom: 20px; }
+        .logo-claim { text-align: center; margin-bottom: 30px; color: #555; font-size: 0.9em;}
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="url"] { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #c00; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; width: 100%; transition: background-color 0.3s ease; }
+        button:hover { background-color: #a00; }
+        .flash-messages { list-style: none; padding: 0; margin-top: 20px; }
+        .flash-messages li { padding: 15px; margin-bottom: 10px; border-radius: 4px; }
+        .flash-messages .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flash-messages .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash-messages .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .flash-messages .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        footer { text-align: center; margin-top: 30px; font-size: 0.85em; color: #777; }
+        footer a { color: #c00; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .disclaimer { font-size: 0.8em; color: #888; text-align: center; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Downloader</h1>
+        <p class="logo-claim">by <a href="https://magnatesempire.com" target="_blank" rel="noopener">magnatesempire.com</a> (yt.magnatesempire.com)</p>
+
+        <!-- Flash Messages Area -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('handle_download') }}" method="post">
+            <label for="url">Enter YouTube Video, Playlist, or Channel URL:</label>
+            <input type="url" id="url" name="url" placeholder="e.g., https://www.youtube.com/watch?v=..." required>
+            <button type="submit">Download</button>
+        </form>
+
+        <!-- Optional: Section to list downloaded files (requires more logic in app.py) -->
+        <!--
+        {% if downloaded_files %}
+        <h2>Downloads Ready:</h2>
+        <ul>
+            {% for filename, title in downloaded_files %}
+            <li><a href="{{ url_for('downloaded_file', filename=filename) }}">{{ title|e }}</a> ({{ filename|e }})</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        -->
+
+         <p class="disclaimer">
+            <strong>Disclaimer:</strong> Please respect copyright laws. Only download videos for which you have permission or which are available under a permissive license (e.g., Creative Commons). This tool is for personal, fair use only.
+        </p>
+    </div>
+
+    <footer>
+        © {{ now().year }} <a href="https://magnatesempire.com" target="_blank" rel="noopener">MagnatesEmpire.com</a> | <a href="https://github.com/magnatesempire/ytdownloader" target="_blank" rel="noopener">View on GitHub</a>
+        <!-- Add link to Terms of Service / Privacy Policy if applicable -->
+    </footer>
+
+     <!-- Add Jinja2 'now' function for dynamic year -->
+    {% set now = modules.datetime.datetime.utcnow %}
+    {% import 'datetime' as modules %}
+
+</body>
+</html>
