@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # SECURITY WARNING: restrict to only your trusted origins in production!
-CSRF_TRUSTED_ORIGINS = ['https://*.kinsta.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.kinsta.app', 'https://*.sevalla.app']
 
 
 # Application definition
